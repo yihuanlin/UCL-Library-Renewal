@@ -1,5 +1,5 @@
 # UCL-Library-Renewal
-An AppleScript, macOS Shortcuts and Automator Calendar Application that automatically renew UCL library loans
+An AppleScript, macOS Shortcuts and Automator Calendar Application to automatically renew UCL library loans
 
 Before you run the AppleScript/Automator, you should add your UCL username and passowrd to the script as instructed.
 
