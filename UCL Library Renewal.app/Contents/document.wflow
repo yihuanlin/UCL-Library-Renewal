@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AMApplicationBuild</key>
+	<string>512</string>
+	<key>AMApplicationVersion</key>
+	<string>2.10</string>
+	<key>AMDocumentVersion</key>
+	<string>2</string>
+	<key>actions</key>
+	<array>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>1.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>source</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.applescript.object</string>
+					</array>
+				</dict>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Run AppleScript.action</string>
+				<key>ActionName</key>
+				<string>Run AppleScript</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>source</key>
+					<string>set username to "YOUR UCL EMAIL ADDRESS" #Replace this with your UCL email addressset passwd to "YOUR UCL PASSWORD" #Replace this with your passwordtell application "Safari" to activatetell application "System Events" to click menu item "New Private Window" of menu "File" of menu bar 1 of application process "Safari"tell application "Safari"	set URL of document 1 to "https://ucl.primo.exlibrisgroup.com/discovery/account?vid=44UCL_INST:UCL_VU2&amp;section=loans"	repeat until URL of document 1 is "https://ucl.primo.exlibrisgroup.com/discovery/account?vid=44UCL_INST:UCL_VU2&amp;section=loans"		set winlist to every window		set winm to {}		set tabm to {}		set arr to {}		repeat with win in winlist			if (count of tabs of win) is not equal to 0 then				set tablist to every tab of win				repeat with t in tablist					if ("ucl.primo.exlibrisgroup.com" is in (URL of t as string)) then						set end of arr to (id of win as string) &amp; "." &amp; (index of t as string) &amp; ".  " &amp; (name of t as string)					end if				end repeat			end if		end repeat	end repeat	set whichtab to (item 1 of arr)	set AppleScript's text item delimiters to "."	set tmp to text items of (whichtab as string)	set w to (item 1 of tmp) as integer	set t to (item 2 of tmp) as integer	set current tab of window id w to tab t of window id w	tell tab t of window id w		set n to 0		set t to 0		repeat until (do JavaScript "document.getElementsByClassName('list-item-title md-display-3')[0].innerHTML") as text is "UCL students and staff" or t is 50			delay 0.2			set t to t + 1		end repeat		do JavaScript "document.getElementsByClassName('list-item-title md-display-3')[0].click()"		set t to 0		repeat until (do JavaScript "document.getElementsByClassName('placeholder')[0].innerHTML") as text is "Log in with your userID@ucl.ac.uk" or t is 100			set t to t + 1			delay 0.2		end repeat		tell application "System Events"			keystroke username			key code 36		end tell		set t to 0		repeat until (do JavaScript "document.getElementsByClassName('placeholder')[0].innerHTML") as text is "Password" or t is 50			set t to t + 1			delay 0.2		end repeat		tell application "System Events"						keystroke passwd			key code 36		end tell		set t to 0		repeat until (do JavaScript "document.getElementById('idBtn_Back').value") as text is "No" or t is 50			set t to t + 1			delay 0.2		end repeat		do JavaScript "document.getElementById('idBtn_Back').click()"		set t to 0		repeat until (do JavaScript "document.getElementsByClassName('button-with-icon button-link md-button md-primoExplore-theme')[0].children[1].innerHTML") as text is "Renew all" or t is 50			set t to t + 1			delay 0.2		end repeat		do JavaScript "document.getElementsByClassName('button-with-icon button-link md-button md-primoExplore-theme')[0].click();"		set t to 0		repeat until ((do JavaScript "document.getElementsByClassName('bar-text margin-right-small')[0].children[0].innerText") as text) is not "" or t is 50			set t to t + 1			delay 0.2		end repeat		set n to do JavaScript "var x = document.getElementsByClassName('bar-text margin-right-small')[0].children[0].innerHTML.slice(0, -1);var y = document.getElementsByClassName('item-respond')[0].children[0].children[0].innerHTML; [x,y]"		if n is not 0 then			display notification item 2 of n with title "UCL Library Renewal: Completed" subtitle item 1 of n		else			display notification "Timeout" with title "UCL Library Renewal: Failed"		end if	end tell	tell window id w to closeend tell</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.RunScript</string>
+				<key>CFBundleVersion</key>
+				<string>1.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryUtilities</string>
+				</array>
+				<key>Class Name</key>
+				<string>RunScriptAction</string>
+				<key>InputUUID</key>
+				<string>1156CA41-4DF8-4545-BA79-6AA14832865B</string>
+				<key>Keywords</key>
+				<array>
+					<string>Run</string>
+				</array>
+				<key>OutputUUID</key>
+				<string>20D7656E-78CF-4371-9C8E-4DB0D4496A5D</string>
+				<key>UUID</key>
+				<string>C52CEC5F-06D0-4DF7-BFC3-E4EB6368FE53</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Automator</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>on run {input, parameters}
+	
+	(* Your script goes here *)
+	
+	return input
+end run</string>
+						<key>name</key>
+						<string>source</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<integer>1</integer>
+				<key>location</key>
+				<string>299.500000:753.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>connectors</key>
+	<dict/>
+	<key>workflowMetaData</key>
+	<dict>
+		<key>workflowTypeIdentifier</key>
+		<string>com.apple.Automator.iCalAlarm</string>
+	</dict>
+</dict>
+</plist>
